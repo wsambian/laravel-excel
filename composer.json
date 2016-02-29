@@ -1,5 +1,8 @@
 {
     "name": "cyberduck/laravel-excel",
+    "type": "library",
+    "description": "",
+    "keywords": ["Laravel", "Excel"],
     "require": {
         "php": ">=5.4.0",
         "box/spout": "^2.4",
@@ -10,10 +13,11 @@
     "authors": [
         {
             "name": "Simone Todaro",
-            "email": "simone@cyber-duck.co.uk"
+            "email": "simone@cyber-duck.co.uk",
+            "role": "Developer"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Cyberduck\\LaravelExcel\\": "src/"
