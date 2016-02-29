@@ -40,7 +40,6 @@ abstract class AbstractSpreadsheet implements ExporterInterface
     {
         $writer = $this->create();
         $writer->openToFile($filename);
-        $writer->addRow($this->headers);
         $writer = $this->makeRows($writer);
         $writer->close();
     }
@@ -60,6 +59,9 @@ abstract class AbstractSpreadsheet implements ExporterInterface
 
     protected function makeRows($writer)
     {
+        if (!empty($this->headers)) {
+            $writer->addRow($this->headers);
+        }
         foreach ($this->data as $record) {
             $writer->addRow($this->serializer->getData($record));
         }
