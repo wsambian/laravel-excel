@@ -1,0 +1,22 @@
+{
+    "name": "cyberduck/laravel-excel",
+    "require": {
+        "php": ">=5.4.0",
+        "box/spout": "^2.4",
+        "illuminate/database": "4.*|5.1",
+        "illuminate/support": "4.*|5.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simone Todaro",
+            "email": "simone@cyber-duck.co.uk"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Cyberduck\\LaravelExcel\\": "src/"
+        }
+    },
+}
