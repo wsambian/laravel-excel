@@ -17,11 +17,9 @@
             "role": "Developer"
         }
     ],
-    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "Cyberduck\\LaravelExcel\\": "src"
         }
-    },
-    "version": 1.0.0
+    }
 }
