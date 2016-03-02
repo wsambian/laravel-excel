@@ -3,35 +3,34 @@ namespace Cyberduck\LaravelExcel\Exporter;
 
 use Illuminate\Database\Eloquent\Collection;
 use Box\Spout\Writer\WriterFactory;
-use Cyberduck\LaravelExcel\Serializer\BasicSerializer;
-use Cyberduck\LaravelExcel\Contract\SerializerInterface;
+use Cyberduck\LaravelExcel\Serialiser\BasicSerialiser;
+use Cyberduck\LaravelExcel\Contract\SerialiserInterface;
 use Cyberduck\LaravelExcel\Contract\ExporterInterface;
 
 abstract class AbstractSpreadsheet implements ExporterInterface
 {
     protected $data;
     protected $type;
-    protected $headers;
-    protected $serializer;
+    protected $serialiser;
 
     public function __construct()
     {
         $this->data = [];
         $this->type = $this->getType();
-        $this->serializer = new BasicSerializer();
-        $this->headers = [];
+        $this->serialiser = new BasicSerialiser();
     }
 
 
-    public function load(Collection $data, $headers = [])
+    public function load(Collection $data)
     {
         $this->data = $data;
-        $this->headers = $headers;
+        return $this;
     }
 
-    public function setSerializer(SerializerInterface $serializer)
+    public function setSerialiser(SerialiserInterface $serialiser)
     {
-        $this->serializer = $serializer;
+        $this->serialiser = $serialiser;
+        return $this;
     }
 
     abstract public function getType();
@@ -59,11 +58,12 @@ abstract class AbstractSpreadsheet implements ExporterInterface
 
     protected function makeRows($writer)
     {
-        if (!empty($this->headers)) {
-            $writer->addRow($this->headers);
+        $headerRow = $this->serialiser->getHeaderRow();
+        if (!empty($headerRow)) {
+            $writer->addRow($headerRow);
         }
         foreach ($this->data as $record) {
-            $writer->addRow($this->serializer->getData($record));
+            $writer->addRow($this->serialiser->getData($record));
         }
         return $writer;
     }
