@@ -53,7 +53,7 @@ abstract class AbstractSpreadsheet implements ImporterInterface
         return ReaderFactory::create($this->type);
     }
 
-    protected function makeRows($writer)
+    protected function parseRows($reader)
     {
         $collection = [];
         foreach ($reader->getSheetIterator() as $index => $sheet) {
