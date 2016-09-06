@@ -11,7 +11,7 @@ This package provides a way to export an Eloquent collection as an excel file an
 The package must be installed directly from [Composer](https://getcomposer.org/).  
 Run the following command:  
 ```
-$ composer require cyberduck/laravel-excel
+$ composer require cyber-duck/laravel-excel
 ```
 
 To make Facades available, register the service provider in config/app.php adding *Cyberduck\LaravelExcel\ExcelServiceProvider* to the provider array.
