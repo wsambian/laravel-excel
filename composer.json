@@ -1,7 +1,7 @@
 {
     "name": "cyber-duck/laravel-excel",
     "type": "library",
-    "description": "A package to export things efficiently.",
+    "description": "This package provides a way to export an Eloquent collection as an excel file and to import a Excel file as an Eloquent collection.",
     "keywords": ["laravel", "excel", "exporter", "export"],
     "require": {
         "php": ">=5.4.0",
