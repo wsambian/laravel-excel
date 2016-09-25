@@ -6,8 +6,8 @@
     "require": {
         "php": ">=5.4.0",
         "box/spout": "^2.4",
-        "illuminate/database": "4.*|5.1.*",
-        "illuminate/support": "4.*|5.1.*"
+        "illuminate/database": "4.*|5.*",
+        "illuminate/support": "4.*|5.*"
     },
     "license": "MIT",
     "authors": [
@@ -21,13 +21,5 @@
         "psr-4": {
             "Cyberduck\\LaravelExcel\\": "src"
         }
-    },
-    "extra": {
-		"component": "package",
-		"frameworks": ["Laravel 4", "Laravel 5"],
-		"versions": {
-			"1": "1.0/master"
-		}
-	},
-	"minimum-stability": "dev"
+    }
 }
