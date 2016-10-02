@@ -2,24 +2,25 @@
     "name": "cyber-duck/laravel-excel",
     "type": "library",
     "description": "This package provides a way to export an Eloquent collection as an excel file and to import a Excel file as an Eloquent collection.",
-    "keywords": ["laravel", "excel", "exporter", "export"],
+    "keywords": ["laravel", "excel", "exporter", "export", "importer", "import", "eloquent", "spout"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simone Todaro",
+            "email": "simo.todaro@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": ">=5.4.0",
         "box/spout": "^2.4",
         "illuminate/database": "4.*|5.*",
         "illuminate/support": "4.*|5.*"
     },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Simone Todaro",
-            "email": "simone@cyber-duck.co.uk",
-            "role": "Developer"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "Cyberduck\\LaravelExcel\\": "src"
         }
-    }
+    },
+    "minimum-stability": "stable"
 }

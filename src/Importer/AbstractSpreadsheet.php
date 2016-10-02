@@ -61,7 +61,7 @@ abstract class AbstractSpreadsheet implements ImporterInterface
                 continue;
             }
             foreach ($sheet->getRowIterator() as $row) {
-                $collection[] = $this->parser->getData($row);
+                $collection[] = $this->parser->transform($row);
             }
         }
         return collect($collection);

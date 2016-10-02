@@ -1,11 +1,11 @@
 <?php
 namespace Cyberduck\LaravelExcel\Parser;
 
-use Illuminate\Database\Eloquent\Model;
+use Cyberduck\LaravelExcel\Contract\ParserInterface;
 
 class BasicParser implements ParserInterface
 {
-    public function getData($row)
+    public function transform($row)
     {
         return $row;
     }

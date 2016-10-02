@@ -1,11 +1,20 @@
 # Laravel Excel  
 
+[![Latest Stable Version](https://poser.pugx.org/cyber-duck/laravel-excel/v/stable)](https://packagist.org/packages/cyber-duck/laravel-excel)
+[![Total Downloads](https://poser.pugx.org/cyber-duck/laravel-excel/downloads)](https://packagist.org/packages/cyber-duck/laravel-excel)
+[![License](https://poser.pugx.org/cyber-duck/laravel-excel/license)](https://raw.githubusercontent.com/Cyber-Duck/laravel-excel/master/LICENSE)
+
+Laravel Excel is a pachage to export and import excel files using Eloquent Collections in Laravel (5.* and 4.*).  
+It's based on [box/spout](https://github.com/box/spout).
+
+Author: [Simone Todaro](https://github.com/SimoTod)
+
+Made with :heart: by [Cyber-Duck Ltd](http://www.cyber-duck.co.uk)
+
 [Installation](#installation)  
 [Export Excel](#export-excel)  
 [Import Excel](#import-excel)  
 [Different formats](#different-formats)  
-
-This package provides a way to export an Eloquent collection as an excel file and to import a Excel file as an Eloquent collection. It's based on [box/spout](https://github.com/box/spout).
 
 ## Installation 
 ```
@@ -25,7 +34,7 @@ use Exporter;
 ```  
 to your controller.
 
-In your action, add
+In your controler function, create a new excel file.
 ```
 $excel = Exporter::make('Excel');
 $excel->load($yourCollection);  
@@ -44,7 +53,7 @@ use Exporter;
 ```  
 to your controller.
 
-In your action, add
+In your controler function, create a new excel file.
 ```
 $excel = Exporter::make('Excel');
 $excel->load($yourCollection);  
@@ -66,7 +75,7 @@ To change this behaviour, create a class which extends *Cyberduck\LaravelExcel\C
 
 Example
 ```
-namespace App\Serialiser;
+namespace App\Serialisers;
 
 use Illuminate\Database\Eloquent\Model;
 use Cyberduck\LaravelExcel\Contract\SerialiserInterface;
@@ -94,7 +103,72 @@ class ExampleSerialiser implements SerialiserInterface
 ```
 
 ## Import Excel
-Coming soon! (In development)
+Add  
+```
+use Importer;
+```  
+to your controller.
+
+In your controler function, import an excel file.
+```
+$excel = Importer::make('Excel');
+$excel->load($filepath);  
+$collection = $excel->getCollection();  
+//dd($collection)
+```  
+
+The importer class is fluent, then you can also write  
+```
+return Importer::make('Excel')->getCollection($filepath)->getCollection();
+```
+
+### Advanced usage
+By default, every row of the first sheet of the excel file becomes an array and the final result is wraped in a Collection (Illuminate\Support\Collection).  
+
+To import a different sheet, use *setSheet($sheet)*
+```
+$excel = Importer::make('Excel');
+$excel->load($filepath);  
+$excel->setSheet($sheetNumber);  
+$collection = $excel->getCollection();  
+//dd($collection)
+```  
+
+To import each row in an Eloquent model, create a class which extends *Cyberduck\LaravelExcel\Contract\ParserInterface* and implements the methods *transform($row)*.  
+
+Example
+```
+namespace App\Parsers;
+
+use App\Models\YourModel;
+use Cyberduck\LaravelExcel\Contract\ParserInterface;
+
+class ExampleSerialiser implements ParserInterface
+{
+    public function transform($row)
+    {
+        $model = new YourModel();
+        $model->field1 = $row[0];
+        $model->field2 = $row[1];
+        // We can manunipulate the data before returning the object
+        $model->field3 = new \Carbon($row[2]);
+        return $model;
+    }
+}
+```
 
 ## Different formats
-Coming soon!
+The pachage supports ODS and CSV files.
+
+### ODS
+```
+$exporter = Exporter::make('OpenOffice');
+$importer = Importer::make('OpenOffice');
+```
+
+### CSV
+```
+$exporter = Exporter::make('Csv');
+$importer = Importer::make('Csv');
+```
+
