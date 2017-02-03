@@ -9,6 +9,8 @@ It's based on [box/spout](https://github.com/box/spout).
 
 Author: [Simone Todaro](https://github.com/SimoTod)
 
+Contributors: [Clément Blanco](https://github.com/Claymm)
+
 Made with :heart: by [Cyber-Duck Ltd](http://www.cyber-duck.co.uk)
 
 [Installation](#installation)  
