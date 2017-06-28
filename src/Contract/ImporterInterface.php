@@ -1,8 +1,6 @@
 <?php
 namespace Cyberduck\LaravelExcel\Contract;
 
-use Illuminate\Database\Eloquent\Collection;
-
 interface ImporterInterface
 {
     public function load($path);

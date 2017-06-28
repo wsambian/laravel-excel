@@ -1,7 +1,6 @@
 <?php
 namespace Cyberduck\LaravelExcel\Importer;
 
-use Illuminate\Database\Eloquent\Collection;
 use Box\Spout\Reader\ReaderFactory;
 use Cyberduck\LaravelExcel\Parser\BasicParser;
 use Cyberduck\LaravelExcel\Contract\ParserInterface;

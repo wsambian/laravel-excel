@@ -12,8 +12,8 @@ class ExcelServiceProvider extends ServiceProvider
     public function boot()
     {
         $loader = AliasLoader::getInstance();
-        $loader->alias('Exporter', '\Cyberduck\LaravelExcel\ExporterFacade');
-        $loader->alias('Importer', '\Cyberduck\LaravelExcel\ImporterFacade');
+        $loader->alias('Exporter', \Cyberduck\LaravelExcel\ExporterFacade::class);
+        $loader->alias('Importer', \Cyberduck\LaravelExcel\ImporterFacade::class);
     }
 
     public function register()
