@@ -160,7 +160,7 @@ class ExampleSerialiser implements ParserInterface
 ```
 
 ## Different formats
-The pachage supports ODS and CSV files.
+The package supports ODS and CSV files.
 
 ### ODS
 ```
@@ -173,4 +173,3 @@ $importer = Importer::make('OpenOffice');
 $exporter = Exporter::make('Csv');
 $importer = Importer::make('Csv');
 ```
-
