@@ -16,7 +16,7 @@ abstract class AbstractSpreadsheet implements ImporterInterface
     public function __construct()
     {
         $this->path = '';
-        $this->sheet = 0;
+        $this->sheet = 1;
         $this->type = $this->getType();
         $this->parser = new BasicParser();
     }
@@ -41,7 +41,7 @@ abstract class AbstractSpreadsheet implements ImporterInterface
     public function getCollection()
     {
         $reader = $this->create();
-        $reader->open();
+        $reader->open($this->path);
         $collection = $this->parseRows($reader);
         $reader->close();
         return $collection;
