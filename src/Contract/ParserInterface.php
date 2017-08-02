@@ -3,5 +3,5 @@ namespace Cyberduck\LaravelExcel\Contract;
 
 interface ParserInterface
 {
-    public function transform($array);
+    public function transform($array, $header);
 }
