@@ -67,7 +67,7 @@ abstract class AbstractSpreadsheet implements ImporterInterface
             $collection = $this->model ? $this->model->newCollection() : collect([]);
 
             foreach ($sheet->getRowIterator() as $rowindex => $row) {
-                if ($rowindex == 1 && $this->header) {
+                if ($rowindex == 1 && $this->hasHeaderRow) {
                     $headers = $row;
                 } else {
                     $data = $this->parser->transform($row, $headers);
@@ -104,7 +104,7 @@ abstract class AbstractSpreadsheet implements ImporterInterface
             }
 
             foreach ($sheet->getRowIterator() as $rowindex => $row) {
-                if ($rowindex == 1 && $this->header) {
+                if ($rowindex == 1 && $this->hasHeaderRow) {
                     $headers = $row;
                 } else {
                     $data = $this->parser->transform($row, $headers);
