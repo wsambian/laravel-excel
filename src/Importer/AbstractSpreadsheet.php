@@ -79,11 +79,13 @@ abstract class AbstractSpreadsheet implements ImporterInterface
                 } else {
                     $data = $this->parser->transform($row, $headers);
 
-                    if ($this->model) {
-                        $data = $this->model->getQuery()->insert($data);
-                    }
+                    if ($data !== false) {
+                        if ($this->model) {
+                            $data = $this->model->getQuery()->newInstance($data);
+                        }
 
-                    $collection->push($data);
+                        $collection->push($data);
+                    }
                 }
             }
         }
@@ -115,12 +117,14 @@ abstract class AbstractSpreadsheet implements ImporterInterface
                     $headers = $row;
                 } else {
                     $data = $this->parser->transform($row, $headers);
-                    $when = array_intersect_key($data, $updateIfEquals);
-                    $values = array_diff($data, $when);
-                    if (!empty($when)) {
-                        $this->model->getQuery()->updateOrInsert($when, $values);
-                    } else {
-                        $this->model->getQuery()->insert($values);
+                    if ($data !== false) {
+                        $when = array_intersect_key($data, $updateIfEquals);
+                        $values = array_diff($data, $when);
+                        if (!empty($when)) {
+                            $this->model->getQuery()->updateOrInsert($when, $values);
+                        } else {
+                            $this->model->getQuery()->insert($values);
+                        }
                     }
                 }
             }
