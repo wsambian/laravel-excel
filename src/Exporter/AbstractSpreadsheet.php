@@ -14,12 +14,20 @@ abstract class AbstractSpreadsheet implements ExporterInterface
     protected $type;
     protected $serialiser;
     protected $chuncksize;
+    protected $callbacks;
 
     public function __construct()
     {
         $this->data = [];
         $this->type = $this->getType();
         $this->serialiser = new BasicSerialiser();
+        $this->callbacks = collect([]);
+    }
+
+    public function __call($name, $args)
+    {
+        $this->callbacks->push([$name, $args]);
+        return $this;
     }
 
     public function load(Collection $data)
@@ -66,7 +74,11 @@ abstract class AbstractSpreadsheet implements ExporterInterface
 
     protected function create()
     {
-        return WriterFactory::create($this->type);
+        $writer = WriterFactory::create($this->type);
+        $this->callbacks->each(function ($elem) use (&$writer) {
+            call_user_func_array(array($writer, $elem[0]), $elem[1]);
+        });
+        return $writer;
     }
 
     protected function makeRows($writer)

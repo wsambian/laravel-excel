@@ -15,6 +15,7 @@ abstract class AbstractSpreadsheet implements ImporterInterface
     protected $sheet;
     protected $model;
     protected $hasHeaderRow;
+    protected $callbacks;
 
     public function __construct()
     {
@@ -24,6 +25,12 @@ abstract class AbstractSpreadsheet implements ImporterInterface
         $this->type = $this->getType();
         $this->parser = new BasicParser();
         $this->model = false;
+    }
+
+    public function __call($name, $args)
+    {
+        $this->callbacks->push([$name, $args]);
+        return $this;
     }
 
     public function load($path)
@@ -124,6 +131,9 @@ abstract class AbstractSpreadsheet implements ImporterInterface
     {
         $reader= ReaderFactory::create($this->type);
         $reader->open($this->path);
+        $this->callbacks->each(function ($elem) use (&$writer) {
+            call_user_func_array(array($writer, $elem[0]), $elem[1]);
+        });
         return $reader;
     }
 }
