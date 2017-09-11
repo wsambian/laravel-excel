@@ -121,7 +121,7 @@ abstract class AbstractSpreadsheet implements ImporterInterface
                     if ($data !== false) {
                         $relationships = [];
                         $when = array_intersect_key($data, $updateIfEquals);
-                        $values = array_diff($data, $when);
+                        $values = array_diff_key($data, $when);
 
                         foreach ($values as $key => $val) {
                             if (method_exists($this->model, $key)) {
