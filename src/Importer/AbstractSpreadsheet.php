@@ -25,6 +25,7 @@ abstract class AbstractSpreadsheet implements ImporterInterface
         $this->type = $this->getType();
         $this->parser = new BasicParser();
         $this->model = false;
+        $this->callbacks = collect([]);
     }
 
     public function __call($name, $args)
