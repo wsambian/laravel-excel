@@ -118,12 +118,34 @@ abstract class AbstractSpreadsheet implements ImporterInterface
                 } else {
                     $data = $this->parser->transform($row, $headers);
                     if ($data !== false) {
+                        $relationships = [];
                         $when = array_intersect_key($data, $updateIfEquals);
                         $values = array_diff($data, $when);
+
+                        foreach ($values as $key => $val) {
+                            if (method_exists($this->model, $key)) {
+                                unset($values[$key]);
+                                $relationships[$key] = $val;
+                            }
+                        }
+
                         if (!empty($when)) {
                             $this->model->getQuery()->updateOrInsert($when, $values);
                         } else {
                             $this->model->getQuery()->insert($values);
+                        }
+
+                        if (count($relationships)) {
+                            $model = $this->model->where($values)
+                                ->orderBy($this->model->getKeyName(), 'desc')
+                                ->first();
+                            foreach ($relationships as $key => $val) {
+                                if (is_array($val)) {
+                                    $model->{$key}()->createMany($val);
+                                } else {
+                                    $model->{$key}()->associate($val);
+                                }
+                            }
                         }
                     }
                 }
