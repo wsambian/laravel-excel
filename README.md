@@ -131,7 +131,7 @@ $collection = $excel->getCollection();
 
 The importer class is fluent, then you can also write
 ```
-return Importer::make('Excel')->getCollection($filepath)->getCollection();
+return Importer::make('Excel')->load($filepath)->getCollection();
 ```
 
 ### Advanced usage
@@ -157,7 +157,7 @@ use Cyberduck\LaravelExcel\Contract\ParserInterface;
 
 class ExampleSerialiser implements ParserInterface
 {
-    public function transform($row)
+    public function transform($row, $headers)
     {
         $model = new YourModel();
         $model->field1 = $row[0];
@@ -168,6 +168,7 @@ class ExampleSerialiser implements ParserInterface
     }
 }
 ```
+
 
 ## Different formats
 The package supports ODS and CSV files.
