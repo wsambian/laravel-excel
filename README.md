@@ -94,7 +94,7 @@ use Cyberduck\LaravelExcel\Contract\SerialiserInterface;
 
 class ExampleSerialiser implements SerialiserInterface
 {
-    public function getData(Model $data)
+    public function getData($data)
     {
         $row = [];
 
