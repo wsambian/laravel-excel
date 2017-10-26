@@ -120,6 +120,7 @@ abstract class AbstractSpreadsheet implements ImporterInterface
                     $data = $this->parser->transform($row, $headers);
                     if ($data !== false) {
                         $relationships = [];
+                        $data = $data['attributes'];
                         $when = array_intersect_key($data, $updateIfEquals);
                         $values = array_diff_key($data, $when);
 
